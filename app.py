@@ -25,7 +25,7 @@ def get_users():
     rsp = Response(json.dumps(res, default=str), status=200, content_type="application/json")
     return rsp
 
-@app.route('/orders/<prefix>', methods = ['POST', 'GET','DELETE','UPDATE'])
+@app.route('/orders/<prefix>', methods = ['POST', 'GET','DELETE','PUT'])
 def order_id(prefix):
     if request.method == 'GET':
         res = OrderResource.get_by_order_id(prefix)
@@ -33,6 +33,15 @@ def order_id(prefix):
         return rsp
     elif request.method == 'POST':
         generate_row = OrderResource.create_by_order_id(prefix)
+        res = OrderResource.get_by_order_id(prefix)
+        rsp = Response(json.dumps(res), status=200, content_type="application/json")
+        return rsp
+    elif request.method == 'DELETE':
+        res = OrderResource.delete_by_order_id(prefix)
+        rsp = Response(json.dumps(res), status=200, content_type="application/json")
+        return rsp
+    elif request.method == 'PUT':
+        generate_row = OrderResource.update_by_order_id(prefix)
         res = OrderResource.get_by_order_id(prefix)
         rsp = Response(json.dumps(res), status=200, content_type="application/json")
         return rsp
