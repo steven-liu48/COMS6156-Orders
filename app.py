@@ -53,6 +53,5 @@ def get_by_prefix(db_schema, table_name, column_name, prefix):
     rsp = Response(json.dumps(res, default=str), status=200, content_type="application/json")
     return rsp
 
-
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000)

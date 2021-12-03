@@ -13,6 +13,7 @@ class OrderResource(BaseApplicationResource):
                                       template, None)
         return res
 
+
     @classmethod
     def get_by_order_id(cls, order_id):
         res = d_service.get_by_prefix("demo_flask", "orders",
@@ -25,6 +26,7 @@ class OrderResource(BaseApplicationResource):
                                       "customer_id", customer_id)
         return res
 
+
     @classmethod
     def create_by_order_id(cls, order_id):
         product_id = '3'
@@ -32,8 +34,7 @@ class OrderResource(BaseApplicationResource):
         customer_id = '3'
         customer_name = 'Alex'
         date = '2021-10-11'
-        res = d_service.create_order("demo_flask", "orders", order_id, product_id, price, customer_id, customer_name,
-                                     date)
+        res = d_service.create_order("demo_flask", "orders", order_id, product_id, price, customer_id, customer_name,date)
         return res
 
     @classmethod
@@ -48,6 +49,11 @@ class OrderResource(BaseApplicationResource):
         customer_id = '3'
         customer_name = 'Beth'
         date = '2021-11-22'
-        res = d_service.update_order("demo_flask", "orders", order_id, product_id, price, customer_id, customer_name, date)
+        res = d_service.update_order("demo_flask", "orders", order_id, product_id, price, customer_id, customer_name,
+                                     date)
         return res
+
+
+
+
 

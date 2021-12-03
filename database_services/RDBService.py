@@ -29,7 +29,7 @@ def get_by_prefix(db_schema, table_name, column_name, value_prefix):
     cur = conn.cursor()
 
     sql = "select * from " + db_schema + "." + table_name + " where " + \
-        column_name + " like " + "'" + value_prefix + "%'"
+        column_name + " = " + value_prefix + ";"
     print("SQL Statement = " + cur.mogrify(sql, None))
 
     res = cur.execute(sql)
@@ -47,7 +47,6 @@ def create_order(db_schema, table_name, order_id, product_id, price, customer_id
 
     sql = "INSERT INTO " + db_schema + "." + table_name + "(order_id, product_id, price, customer_id, customer_name, date) \
     VALUES (" + order_id + ", '" + product_id + "', '" + price + "', '" + customer_id + "', '" + customer_name + "', '" + date + "');"
-    print(sql)
 
     res = cur.execute(sql)
     res = cur.fetchall()
@@ -91,31 +90,43 @@ def find_by_template(db_schema, table_name, template, field_list):
 
     return res
 
-
 def delete_order(db_schema, table_name, order_id):
 
     conn = _get_db_connection()
     cur = conn.cursor()
 
     sql = "DELETE FROM " + db_schema + "." + table_name + " WHERE order_id = " + order_id
-
     res = cur.execute(sql)
     res = cur.fetchall()
     conn.commit()
     conn.close()
     return res
-
 
 def update_order(db_schema, table_name, order_id, product_id, price, customer_id, customer_name, date):
 
     conn = _get_db_connection()
     cur = conn.cursor()
 
-    sql = "UPDATE " + db_schema + "." + table_name + " SET product_id = " + product_id + ", price = " + price + ", customer_id = " + customer_id + ", customer_name = " + customer_name + ", date = " + date + " WHERE order_id = " + order_id + ";"
+    sql = "UPDATE " + db_schema + "." + table_name + " SET product_id = " + product_id + ", price = " + price + ", customer_id = " + customer_id + ", customer_name = '" + customer_name + "', date = '" + date + "' WHERE order_id = " + order_id + ";"
     print(sql)
-
     res = cur.execute(sql)
     res = cur.fetchall()
     conn.commit()
     conn.close()
     return res
+
+# def get_by_prefix(db_schema, table_name, column_name, value_prefix):
+#
+#     conn = _get_db_connection()
+#     cur = conn.cursor()
+#
+#     sql = "select * from " + db_schema + "." + table_name + " where " + \
+#         column_name + " like " + "'" + value_prefix + "%'"
+#     print("SQL Statement = " + cur.mogrify(sql, None))
+#
+#     res = cur.execute(sql)
+#     res = cur.fetchall()
+#
+#     conn.close()
+#
+#     return res
